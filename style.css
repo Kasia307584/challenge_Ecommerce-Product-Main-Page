@@ -21,14 +21,15 @@ html {
 body {
   font-family: var(--font-default);
   color: var(--neutral-2);
-  display: flex;
-  flex-direction: column;
+  max-width: 1440px;
+  margin: auto;
+  margin-top: 3rem;
 }
 main {
   margin: auto;
   max-width: 1200px;
   display: flex;
-  margin-top: 5rem;
+  margin-top: 4rem;
 }
 section {
   padding: 4rem;
@@ -44,7 +45,7 @@ section {
 }
 .gallery-photos {
   text-align: center;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   display: flex;
   justify-content: space-between;
 }
@@ -52,77 +53,85 @@ section {
   width: 20%;
   border-radius: 10px;
 }
-h2 {
+.company-name {
   color: var(--primary-1);
   text-transform: uppercase;
-  font-size: smaller;
+  font-size: 15px;
   letter-spacing: 1px;
   margin-bottom: -0.5rem;
 }
-h1 {
+.product-name {
   color: var(--neutral-1);
-  font-size: xx-large;
+  font-size: 47px;
+  line-height: 1.1;
+  margin: 2rem 0;
 }
 .product-description {
   line-height: 170%;
 }
+.prices {
+  margin-top: 1.5rem;
+}
 .product-price {
   color: var(--neutral-1);
   font-weight: bold;
-  font-size: 20px;
-}
-.prices {
-  margin-top: 2rem;
-}
-.product-name {
-  width: 90%;
-  font-size: 40px;
+  font-size: 30px;
 }
 .discount-percent {
   color: var(--primary-1);
   font-weight: bold;
-  padding-left: 1rem;
+  font-size: 17px;
+  margin-left: 1.2rem;
+  background-color: var(--primary-2);
+  padding: 0.2rem 0.4rem;
+  border-radius: 5px;
+  position: relative;
+  bottom: 5px;
 }
 .previous-price {
   display: block;
   text-decoration: line-through;
-  padding-top: 0.5rem;
-  font-size: smaller;
+  margin-top: 0.5rem;
 }
 .count-icon {
   padding: 0 1.5rem;
 }
 .count-article {
   padding: 0 1rem;
+  font-weight: 700;
+  color: var(--neutral-1);
 }
 .counter {
-  margin-top: 2.5rem;
+  margin-top: 2rem;
 }
 .btn {
   background-color: var(--primary-1);
-  padding: 13px 70px;
+  padding: 18px 75px;
   border: unset;
   color: var(--neutral-5);
   border-radius: 10px;
+  margin-left: 1rem;
 }
 .btn-text {
   font-weight: 700;
+  font-size: 16px;
 }
-.cart-icon {
+#btn-add > .cart-icon {
   margin-bottom: -0.3rem;
-  margin-right: 0.2rem;
+  margin-right: 0.5rem;
 }
+
+/* || HEADER - desktop */
 
 body > header {
   margin-top: 2rem;
   margin-left: 8rem;
 }
 nav {
-  width: 30rem;
+  width: 28rem;
   margin-top: -2.4rem;
   margin-left: 18rem;
 }
-
 ul {
   display: flex;
   list-style: none;
@@ -134,16 +143,22 @@ a {
 .cart-and-avatar {
   display: flex;
   justify-content: flex-end;
-  margin-top: -2.5rem;
+  margin-top: -3rem;
   margin-right: 4rem;
 }
 .avatar > img {
-  width: 40%;
+  width: 47%;
 }
-.icon-cart > img {
+.cart-icon > img {
   margin-right: 3rem;
-  margin-top: 0.5rem;
+  margin-top: 0.8rem;
 }
+hr {
+  width: 83%;
+  margin-top: 2rem;
+}
+
+/* || FOOTER - desktop */
 
 .attribution {
   font-size: 11px;
