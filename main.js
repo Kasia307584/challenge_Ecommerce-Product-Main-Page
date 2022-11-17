@@ -1,3 +1,7 @@
+import Counter from "./counter.js";
+
+const counter = new Counter();
+
 const productCountCart = document.querySelector(".cart-product-count");
 const plusIcon = document.querySelector(".plus-icon");
 const minusIcon = document.querySelector(".minus-icon");
@@ -5,36 +9,22 @@ const productCount = document.querySelector(".count-article");
 const btnAdd = document.querySelector(".btn-add");
 const productPriceCart = document.querySelector(".cart-product-price");
 const productPrice = document.querySelector(".product-price");
-const productPriceTotalCart = document.querySelector(
-  ".cart-product-price-total"
-);
+const productSumCart = document.querySelector(".cart-product-sum");
 
-let count = 0;
-
-const displayCountCart = (number) => {
-  productCountCart.textContent = " x " + number + " ";
-  productPriceCart.textContent = productPrice.textContent;
-  const price = productPrice.textContent.substring(1);
-  const priceTotal = price * number;
-  productPriceTotalCart.textContent = "$" + priceTotal + ".00";
+const getPrice = () => {
+  return productPrice.textContent.substring(1);
 };
 
 plusIcon.addEventListener("click", () => {
-  count++;
-  console.log(count);
-  productCount.textContent = count;
+  productCount.textContent = counter.addCount();
 });
 
 minusIcon.addEventListener("click", () => {
-  if (count > 0) {
-    count--;
-    console.log(count);
-    productCount.textContent = count;
-  }
+  productCount.textContent = counter.subtractCount();
 });
 
 btnAdd.addEventListener("click", () => {
-  if (count > 0) {
-    displayCountCart(count);
-  }
+  productPriceCart.textContent = productPrice.textContent;
+  productCountCart.textContent = " x " + counter.countToDisplay() + " ";
+  productSumCart.textContent = "$" + counter.sumToDisplay(getPrice()) + ".00";
 });

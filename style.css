@@ -249,7 +249,7 @@ li:hover {
   margin-left: 12px;
   line-height: 1.5;
 }
-.cart-product-price-total {
+.cart-product-sum {
   font-weight: 700;
   color: var(--neutral-1);
 }
