@@ -120,7 +120,7 @@ section {
   box-shadow: 0px 14px 30px hsl(26deg 100% 55% / 40%);
   margin-left: 1rem;
 }
-.btn-add .cart-icon {
+.btn-add .basket-icon {
   margin-bottom: -0.3rem;
   margin-right: 0.5rem;
 }
@@ -156,11 +156,11 @@ a {
 .avatar > img {
   width: 47%;
 }
-.cart-icon > img {
+.basket-icon > img {
   margin-right: 3rem;
   margin-top: 0.8rem;
 }
-.cart-icon:before {
+.bullet-icon:before {
   content: attr(value);
   font-size: 9px;
   color: #fff;
@@ -171,8 +171,8 @@ a {
   left: 25px;
   top: -15px;
   z-index: 1;
-  opacity: 1;
 }
+
 .cart-and-avatar + hr {
   width: 83%;
   margin-top: 2rem;
@@ -209,10 +209,14 @@ li:hover {
   cursor: pointer;
 }
 
-.cart-icon > img:hover {
+.basket-icon > img:hover {
   filter: invert(48%) sepia(79%) saturate(100%) hue-rotate(86deg) brightness(0%)
     contrast(95%);
   cursor: pointer;
+}
+
+.cart-content--hidden {
+  visibility: hidden;
 }
 
 .cart-content {
@@ -223,6 +227,7 @@ li:hover {
   width: 350px;
   border-radius: 10px;
   margin-top: -2rem;
+  z-index: 1;
 }
 .cart-content h3 {
   color: var(--neutral-1);
@@ -266,6 +271,16 @@ li:hover {
 }
 .btn-checkout {
   width: 100%;
+}
+.cart-message {
+  height: 178px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+hr.for-empty-cart {
+  margin-bottom: 0;
 }
 
 /* || FOOTER - desktop */
