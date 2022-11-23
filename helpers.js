@@ -1,4 +1,4 @@
 // returns formatted price
-export const getPrice = (price) => {
-  return price.textContent.substring(1);
+export const getPrice = (productPriceElem) => {
+  return productPriceElem.textContent.substring(1);
 };
