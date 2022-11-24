@@ -1,5 +1,6 @@
 import Counter from "./counter.js";
 import Cart from "./cart.js";
+import Gallery from "./gallery.js";
 
 const plusIcon = document.querySelector(".plus-icon");
 const minusIcon = document.querySelector(".minus-icon");
@@ -10,6 +11,7 @@ const basketIcon = document.querySelector(".basket-icon > img");
 
 const counter = new Counter(0);
 const cartInstance = new Cart(counter, cart);
+const gallery = new Gallery();
 
 plusIcon.addEventListener("click", () => {
   productCount.textContent = counter.addCount();
