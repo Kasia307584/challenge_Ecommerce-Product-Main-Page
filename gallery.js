@@ -1,31 +1,39 @@
-// add event "click" to photos gallery: toggle small photos and display a correspondig big photo
+// register event on photos in gallery: toggle photos and display the correspondig main photo
 export default class Gallery {
   constructor() {
-    const imgSrc = new ImgSrc();
-    const arrOfObjSrc = imgSrc.createArrOfObjSrc();
+    this.imgSrc = new ImgSrc();
+    this.arrOfObjSrc = this.imgSrc.createArrOfObjSrc();
 
     const galleryNode = document.querySelector(".gallery-photos");
     const listImg = galleryNode.childNodes; // .childNodes forms an iterable list; not required when using querySelectorAll(".gallery-photo")
-    let selected = document.querySelector(".gallery-photo--active");
-    let imgMain = document.querySelector(".main-img--active");
+    this.selected = document.querySelector(".gallery-photo--active"); // selected photo in gallery
+    this.imgMain = document.querySelector(".main-img--active"); // selected main photo
 
     listImg.forEach((img) => {
       img.addEventListener("click", (e) => {
-        selected?.classList.remove("gallery-photo--active");
-        if (selected === e.target) {
-          e.target.classList.remove("gallery-photo--active");
-          selected = null;
-        } else {
-          e.target.classList.add("gallery-photo--active");
-          const objTarget = arrOfObjSrc.find(
-            (item) => item.small === e.target.src
-          ); // find the object with the src of the clicked small photo
-          const imgMainTarget = imgSrc.getSrc(objTarget, "big"); // src of the correspondig big photo
-          imgMain.src = imgMainTarget; // change src to the element with class --active
-          selected = e.target;
-        }
+        this.toggleImg(e);
+        this.displayMainImg(e);
       });
     });
+  }
+
+  toggleImg(e) {
+    this.selected?.classList.remove("gallery-photo--active");
+    if (this.selected === e.target) {
+      e.target.classList.remove("gallery-photo--active");
+      this.selected = null;
+    } else {
+      e.target.classList.add("gallery-photo--active");
+      this.selected = e.target;
+    }
+  }
+
+  displayMainImg(e) {
+    this.objTarget = this.arrOfObjSrc.find(
+      (item) => item.small === e.target.src
+    ); // find the object with the src of the clicked small photo
+    this.imgMainTarget = this.imgSrc.getSrc(this.objTarget, "big"); // src of the correspondig big photo
+    this.imgMain.src = this.imgMainTarget; // change src to the element with class --active
   }
 }
 
