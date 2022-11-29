@@ -308,7 +308,8 @@ hr.for-empty-cart {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 10;
-  animation: lightboxStart 0.5s;
+  animation: show 0.5s; /* applies when opening the lightbox */
+  transition: opacity 0.3s; /* allows the gradual disapearing effect with class .fadeOut */
 }
 .lightbox button {
   border: none;
@@ -353,13 +354,16 @@ hr.for-empty-cart {
 .lightbox__container img {
   max-width: 100%;
   height: auto;
-  animation: lightboxStart 0.5s;
+  animation: show 0.5s; /* applies when going to the next img */
 }
-@keyframes lightboxStart {
+@keyframes show {
   from {
     opacity: 0;
   }
   to {
     opacity: 1;
   }
+}
+.lightbox.fadeOut {
+  opacity: 0; /* allows the gradual disapearing effect with transition */
 }

@@ -1,6 +1,7 @@
 import Counter from "./counter.js";
 import Cart from "./cart.js";
 import Gallery from "./gallery.js";
+import Lightbox from "./lightbox.js";
 
 const plusIcon = document.querySelector(".plus-icon");
 const minusIcon = document.querySelector(".minus-icon");
