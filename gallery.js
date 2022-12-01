@@ -38,7 +38,7 @@ export default class Gallery {
 }
 
 // creates obj with pairs of small and big img, allows to access the targeted src
-class ImgSrc {
+export class ImgSrc {
   constructor() {
     this.galleryPhoto = document.querySelectorAll(".gallery-photo");
   }
