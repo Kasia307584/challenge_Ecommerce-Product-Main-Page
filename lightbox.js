@@ -1,4 +1,5 @@
 import { ImgSrc } from "./gallery.js";
+import Gallery from "./gallery.js";
 
 export default class Lightbox {
   static init() {
@@ -17,6 +18,15 @@ export default class Lightbox {
     this.lightboxElem = this.buildDOM(url);
     document.body.appendChild(this.lightboxElem);
 
+    const galleryNode = document.querySelector(".lightbox__gallery-photos");
+    const selected = document.querySelector(".lightbox__gallery-photo--active"); // selected photo in gallery
+    const imgMain = document.querySelector(".lightbox__main-img--active"); // selected main photo
+    const className = "lightbox__gallery-photo--active";
+
+    const gallery = new Gallery(galleryNode, selected, imgMain, className);
+    // this.galleryList = document.querySelectorAll(".lightbox__gallery-photo");
+    // gallery.galleryPh(this.galleryList, "lightbox__gallery-photo--active");
+
     this.onKeyUp = this.onKeyUp.bind(this); // allows to keep version of the function in the line below and then remove the event when needed
     document.addEventListener("keyup", this.onKeyUp);
 
@@ -29,7 +39,37 @@ export default class Lightbox {
     elem.innerHTML = `<button class="lightbox__close"></button>
     <button class="lightbox__next"></button>
     <button class ="lightbox__prev"></button>
-    <div class="lightbox__container"><img src="${url}"></div>`;
+    <div class="lightbox__container">
+    <div class="lightbox__main-photo">
+          <img
+            class="main-img lightbox__main-img--active"
+            src="${url}"
+            alt="Product image"
+          />
+        </div>
+    <div class="lightbox__gallery-photos">
+          <img
+            class="lightbox__gallery-photo lightbox__gallery-photo--active"
+            src="images/image-product-1-thumbnail.jpg"
+            alt="Product image"
+          />
+          <img
+            class="lightbox__gallery-photo"
+            src="images/image-product-2-thumbnail.jpg"
+            alt="Product image"
+          />
+          <img
+            class="lightbox__gallery-photo"
+            src="images/image-product-3-thumbnail.jpg"
+            alt="Product image"
+          />
+          <img
+            class="lightbox__gallery-photo"
+            src="images/image-product-4-thumbnail.jpg"
+            alt="Product image"
+          />
+        </div>
+    </div>`;
 
     this.url = url; // url of currently displayed img
 
@@ -47,9 +87,11 @@ export default class Lightbox {
 
   loadImage(url) {
     const image = new Image();
-    const container = this.lightboxElem.querySelector(".lightbox__container");
-    container.innerHTML = "";
-    container.appendChild(image);
+    const containerMainPh = this.lightboxElem.querySelector(
+      ".lightbox__main-photo"
+    );
+    containerMainPh.innerHTML = "";
+    containerMainPh.appendChild(image);
     image.src = url;
     this.url = url;
   }

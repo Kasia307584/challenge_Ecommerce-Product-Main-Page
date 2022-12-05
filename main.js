@@ -10,9 +10,14 @@ const btnAdd = document.querySelector(".btn-add");
 const cart = document.querySelector(".cart-content");
 const basketIcon = document.querySelector(".basket-icon > img");
 
+const galleryNode = document.querySelector(".gallery-photos");
+const selected = document.querySelector(".gallery-photo--active"); // selected photo in gallery
+const imgMain = document.querySelector(".main-img--active"); // selected main photo
+const className = "gallery-photo--active";
+
 const counter = new Counter(0);
 const cartInstance = new Cart(counter, cart);
-const gallery = new Gallery();
+const gallery = new Gallery(galleryNode, selected, imgMain, className);
 
 plusIcon.addEventListener("click", () => {
   productCount.textContent = counter.addCount();
