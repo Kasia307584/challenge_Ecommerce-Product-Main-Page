@@ -25,7 +25,7 @@ export default class Cart {
     />
     <span class="cart-product-name">${this.productName.textContent}</span>
     <span class="cart-product-price">$${getPrice(this.productPrice)}</span
-    ><span class="cart-product-count"> x${this.counterObj.getCurrentValue()} </span
+    ><span class="cart-product-count"> x${this.counterObj.currentValue} </span
     ><span class="cart-product-sum">$${this.counterObj.sumToDisplay(
       getPrice(this.productPrice)
     )}</span>
@@ -49,12 +49,9 @@ export default class Cart {
 
   // toggle basket bullet and update its content (value)
   updateBasketBullet() {
-    if (this.counterObj.getCurrentValue() > 0) {
+    if (this.counterObj.currentValue > 0) {
       this.articlesInBasket.classList.add("bullet-icon");
-      this.articlesInBasket.setAttribute(
-        "value",
-        this.counterObj.getCurrentValue()
-      );
+      this.articlesInBasket.setAttribute("value", this.counterObj.currentValue);
     } else {
       this.articlesInBasket.classList.remove("bullet-icon");
     }

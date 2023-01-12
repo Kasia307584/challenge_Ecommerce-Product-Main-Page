@@ -19,7 +19,7 @@ export default class Counter {
     return (price * this.count).toFixed(2);
   }
 
-  getCurrentValue() {
+  get currentValue() {
     return this.count;
   }
 }

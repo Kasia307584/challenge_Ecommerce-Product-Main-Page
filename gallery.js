@@ -4,15 +4,15 @@ export default class Gallery {
     this.imgSrc = new ImgSrc();
     this.arrOfObjSrc = this.imgSrc.createArrOfObjSrc();
 
-    // const galleryNode = document.querySelector(".gallery-photos");
     this.listImg = galleryNode.childNodes; // .childNodes forms an iterable list; not required when using querySelectorAll(".gallery-photo")
-    // this.selected = document.querySelector(".gallery-photo--active"); // selected photo in gallery
-    // this.imgMain = document.querySelector(".main-img--active"); // selected main photo
-    // this.className = "gallery-photo--active";
     this.selected = selected;
     this.imgMain = imgMain;
     this.className = className;
 
+    this.registerGalleryEvent();
+  }
+
+  registerGalleryEvent() {
     this.listImg.forEach((img) => {
       img.addEventListener("click", (e) => {
         this.toggleImg(e);
@@ -22,7 +22,7 @@ export default class Gallery {
   }
 
   toggleImg(e) {
-    this.selected?.classList.remove(this.className);
+    this.selected.classList.remove(this.className);
     e.target.classList.add(this.className);
     this.selected = e.target;
   }
