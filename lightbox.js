@@ -1,39 +1,29 @@
-import { ImgSrc } from "./gallery.js";
 import Gallery from "./gallery.js";
 
+// displays lightbox; uses gallery methods to toggle photos; allows to swich main photo and close the lightbox
 export default class Lightbox {
-  static init() {
-    const mainPhoto = document.querySelector(".main-img--active");
-    mainPhoto.addEventListener("click", (e) => {
-      e.preventDefault();
-      new Lightbox(e.currentTarget.src, linksArr);
-    });
+  constructor(selected, imgMain, className) {
+    this.selected = selected; // small photo last selected on the main page
+    this.imgMain = imgMain; // main photo last displayed on the main page
+    this.className = className; // class name --active for selected small photo in lightbox
 
-    const imgs = new ImgSrc();
-    const imgsObj = imgs.createArrOfObjSrc();
-    const linksArr = imgsObj.map((obj) => obj.big);
-  }
-
-  constructor(url, links) {
-    this.lightboxElem = this.buildDOM(url);
+    this.lightboxElem = this.buildDOM();
     document.body.appendChild(this.lightboxElem);
+    this.imgMain = document.querySelector(".lightbox__main-img"); // selected main photo in lightbox
 
-    const galleryNode = document.querySelector(".lightbox__gallery-photos");
-    const selected = document.querySelector(".lightbox__gallery-photo--active"); // selected photo in gallery
-    const imgMain = document.querySelector(".lightbox__main-img--active"); // selected main photo
-    const className = "lightbox__gallery-photo--active";
+    this.galleryImgs = document.querySelectorAll(".lightbox__gallery-photo"); // gallery small photos in lightbox
+    this.findSelectedImg().classList.add(className);
+    this.selected = this.findSelectedImg(); // selected small photo in lightbox
 
-    const gallery = new Gallery(galleryNode, selected, imgMain, className);
-    // this.galleryList = document.querySelectorAll(".lightbox__gallery-photo");
-    // gallery.galleryPh(this.galleryList, "lightbox__gallery-photo--active");
-
-    this.onKeyUp = this.onKeyUp.bind(this); // allows to keep version of the function in the line below and then remove the event when needed
-    document.addEventListener("keyup", this.onKeyUp);
-
-    this.links = links;
+    this.gallery = new Gallery(
+      this.galleryImgs,
+      this.selected,
+      this.imgMain,
+      className
+    );
   }
 
-  buildDOM(url) {
+  buildDOM() {
     const elem = document.createElement("div");
     elem.classList.add("lightbox");
     elem.innerHTML = `<button class="lightbox__close"></button>
@@ -42,14 +32,14 @@ export default class Lightbox {
     <div class="lightbox__container">
     <div class="lightbox__main-photo">
           <img
-            class="main-img lightbox__main-img--active"
-            src="${url}"
+            class="lightbox__main-img lightbox__main-img--active"
+            src=${this.imgMain.src}
             alt="Product image"
           />
         </div>
     <div class="lightbox__gallery-photos">
           <img
-            class="lightbox__gallery-photo lightbox__gallery-photo--active"
+            class="lightbox__gallery-photo "
             src="images/image-product-1-thumbnail.jpg"
             alt="Product image"
           />
@@ -71,66 +61,13 @@ export default class Lightbox {
         </div>
     </div>`;
 
-    this.url = url; // url of currently displayed img
-
-    elem
-      .querySelector(".lightbox__close")
-      .addEventListener("click", this.close.bind(this));
-    elem
-      .querySelector(".lightbox__next")
-      .addEventListener("click", this.next.bind(this));
-    elem
-      .querySelector(".lightbox__prev")
-      .addEventListener("click", this.prev.bind(this));
     return elem;
   }
 
-  loadImage(url) {
-    const image = new Image();
-    const containerMainPh = this.lightboxElem.querySelector(
-      ".lightbox__main-photo"
+  // find small photo the last selected on the main page in the lightbox's img gallery
+  findSelectedImg() {
+    return Array.from(this.galleryImgs).find(
+      (img) => img.src === this.selected.src
     );
-    containerMainPh.innerHTML = "";
-    containerMainPh.appendChild(image);
-    image.src = url;
-    this.url = url;
-  }
-
-  close(e) {
-    e.preventDefault();
-    this.lightboxElem.classList.add("fadeOut"); // to style the gradual disappearing effect
-    window.setTimeout(() => {
-      this.lightboxElem.remove();
-    }, 500); // removes lightbox in 5 sec; gradual disappearing effect in CSS is 3 sec
-    document.removeEventListener("keyup", this.onKeyUp);
-  }
-  next(e) {
-    e.preventDefault();
-    let pos = this.links.findIndex((img) => img === this.url); // find index of currently displayed img
-    if (pos === this.links.length - 1) {
-      pos = -1;
-    }
-    this.loadImage(this.links[pos + 1]);
-  }
-  prev(e) {
-    e.preventDefault();
-    let pos = this.links.findIndex((img) => img === this.url);
-    if (pos === 0) {
-      pos = this.links.length;
-    }
-    this.loadImage(this.links[pos - 1]);
-  }
-
-  // keybord navigation events
-  onKeyUp(e) {
-    if (e.key === "Escape") {
-      this.close(e);
-    } else if (e.key === "ArrowLeft") {
-      this.prev(e);
-    } else if (e.key === "ArrowRight") {
-      this.next(e);
-    }
   }
 }
-
-Lightbox.init();

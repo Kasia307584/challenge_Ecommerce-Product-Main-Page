@@ -1,19 +1,19 @@
 // register event on photos in gallery: toggle photos and display the correspondig main photo
 export default class Gallery {
-  constructor(galleryNode, selected, imgMain, className) {
-    this.imgSrc = new ImgSrc();
+  constructor(galleryImgs, selected, imgMain, className) {
+    this.imgSrc = new ImgSrc(galleryImgs);
     this.arrOfObjSrc = this.imgSrc.createArrOfObjSrc();
 
-    this.listImg = galleryNode.childNodes; // .childNodes forms an iterable list; not required when using querySelectorAll(".gallery-photo")
-    this.selected = selected;
-    this.imgMain = imgMain;
-    this.className = className;
+    this.galleryImgs = galleryImgs; // gallery small photos
+    this.selected = selected; // selected small photo
+    this.imgMain = imgMain; // displayed main photo
+    this.className = className; // class name --active for selected small photo
 
     this.registerGalleryEvent();
   }
 
   registerGalleryEvent() {
-    this.listImg.forEach((img) => {
+    this.galleryImgs.forEach((img) => {
       img.addEventListener("click", (e) => {
         this.toggleImg(e);
         this.displayMainImg(e);
@@ -36,10 +36,10 @@ export default class Gallery {
   }
 }
 
-// creates obj with pairs of small and big img, allows to access the targeted src
-export class ImgSrc {
-  constructor() {
-    this.galleryPhoto = document.querySelectorAll(".gallery-photo");
+// creates obj with pairs of small and big img; allows to access the targeted src
+class ImgSrc {
+  constructor(galleryPhoto) {
+    this.galleryPhoto = galleryPhoto;
   }
 
   // creates array of objects with key/value pairs where values are image's src
