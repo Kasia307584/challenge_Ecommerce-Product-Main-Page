@@ -37,11 +37,11 @@ section {
   width: 50%;
 }
 .main-photo,
-.lightbox__main-photo {
+.lightbox__main-img {
   text-align: center;
 }
 .main-photo img,
-.lightbox__main-photo img {
+.lightbox__main-img img {
   width: 100%;
   border-radius: 15px;
 }
