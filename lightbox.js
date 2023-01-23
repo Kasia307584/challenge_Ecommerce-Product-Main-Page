@@ -22,9 +22,11 @@ export default class Lightbox {
       className
     );
     this.arrBigImgSrc = this.gallery.arrOfObjSrc.map((obj) => obj.big);
-    // Question: should I use new instance of the class ImgSrc here instead? / AND put it inside the next() method
 
     this.registerLightboxEvents();
+
+    this.onKeyUp = this.onKeyUp.bind(this); // allows to keep version of the function in the line below and then remove the event when needed
+    document.addEventListener("keyup", this.onKeyUp);
   }
 
   buildDOM() {
@@ -85,21 +87,30 @@ export default class Lightbox {
         this.next();
         this.toggleCorrespondingImg();
       });
+    this.lightboxElem
+      .querySelector(".lightbox__prev")
+      .addEventListener("click", () => {
+        this.prev();
+        this.toggleCorrespondingImg();
+      });
   }
 
   close(e) {
-    e.preventDefault();
     this.lightboxElem.classList.add("fadeOut"); // to style the gradual disappearing effect
     window.setTimeout(() => {
       this.lightboxElem.remove();
     }, 500); // removes lightbox in 5 sec; gradual disappearing effect in CSS is 3 sec
+    document.removeEventListener("keyup", this.onKeyUp);
+  }
+
+  // identify the array's index of currently displayed main photo
+  findDisplayedImg() {
+    return this.arrBigImgSrc.findIndex((imgSrc) => imgSrc === this.imgMain.src);
   }
 
   // allows to switch the main photo to the next one
   next() {
-    const index = this.arrBigImgSrc.findIndex(
-      (imgSrc) => imgSrc === this.imgMain.src
-    ); // identify the array's index of currently displayed main photo
+    const index = this.findDisplayedImg();
     let nextImg;
 
     if (this.imgMain.src === this.arrBigImgSrc.at(-1)) {
@@ -109,6 +120,19 @@ export default class Lightbox {
     } // identify the src of the next img in the array, or the first one if no more items in the array
 
     this.imgMain.src = nextImg; // displays the next img as the main photo
+  }
+
+  prev() {
+    const index = this.findDisplayedImg();
+    let nextImg;
+
+    if (this.imgMain.src === this.arrBigImgSrc.at(0)) {
+      nextImg = this.arrBigImgSrc.at(-1);
+    } else {
+      nextImg = this.arrBigImgSrc.at(index - 1);
+    }
+
+    this.imgMain.src = nextImg;
   }
 
   // allows to select the corresponding small photo to the main photo
@@ -125,6 +149,18 @@ export default class Lightbox {
         this.gallery.selected = img;
       } // selects the corresponding small photo
     });
-    // Question: is ok to use this.gallery.selected instead of this.selected?
+  }
+
+  // keybord navigation events
+  onKeyUp(e) {
+    if (e.key === "Escape") {
+      this.close(e);
+    } else if (e.key === "ArrowLeft") {
+      this.prev(e);
+      this.toggleCorrespondingImg();
+    } else if (e.key === "ArrowRight") {
+      this.next(e);
+      this.toggleCorrespondingImg();
+    }
   }
 }
