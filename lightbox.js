@@ -32,11 +32,12 @@ export default class Lightbox {
   buildDOM() {
     const elem = document.createElement("div");
     elem.classList.add("lightbox");
-    elem.innerHTML = `<button class="lightbox__close"></button>
-    <button class="lightbox__next"></button>
-    <button class ="lightbox__prev"></button>
+    elem.innerHTML = `
     <div class="lightbox__container">
     <div class="lightbox__main-photo">
+          <button class="lightbox__close"></button>
+          <button class="lightbox__next"></button>
+          <button class ="lightbox__prev"></button>
           <img
             class="lightbox__main-img"
             src=${this.imgMain.src}
