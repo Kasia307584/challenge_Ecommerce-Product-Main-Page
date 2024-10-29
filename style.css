@@ -289,21 +289,6 @@ hr.for-empty-cart {
   margin-bottom: 0;
 }
 
-/* || FOOTER - desktop */
-
-.attribution {
-  font-size: 11px;
-  text-align: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin-bottom: 1rem;
-}
-.attribution a {
-  color: hsl(228, 45%, 44%);
-}
-
 /* || LIGHTBOX - desktop */
 
 .lightbox {
